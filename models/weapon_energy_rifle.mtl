@@ -1,0 +1,42 @@
+# MTL for Energy Rifle
+
+newmtl rifle_body_mat
+Kd 0.1569 0.1569 0.1569
+Ka 0.0784 0.0784 0.0784
+Ks 0.1 0.1 0.1
+Ns 10.0
+illum 2
+map_Kd mech_texture.png
+
+newmtl rifle_barrel_mat
+Kd 0.3137 0.3137 0.3137
+Ka 0.1569 0.1569 0.1569
+Ks 0.1 0.1 0.1
+Ns 10.0
+illum 2
+map_Kd mech_texture.png
+
+newmtl rifle_scope_mat
+Kd 0.3529 0.3922 0.4510
+Ka 0.1765 0.1961 0.2255
+Ks 0.1 0.1 0.1
+Ns 10.0
+illum 2
+map_Kd mech_texture.png
+
+newmtl rifle_mag_mat
+Kd 0.8627 0.7059 0.0784
+Ka 0.4314 0.3529 0.0392
+Ks 0.1 0.1 0.1
+Ns 10.0
+illum 2
+map_Kd mech_texture.png
+
+newmtl rifle_stock_mat
+Kd 0.1961 0.2157 0.2549
+Ka 0.0980 0.1078 0.1275
+Ks 0.1 0.1 0.1
+Ns 10.0
+illum 2
+map_Kd mech_texture.png
+

@@ -1,4 +1,4 @@
-# MTL for N64 Mech Prototype
+# MTL for Mech Prototype
 
 newmtl head_main_mat
 Kd 0.1961 0.2157 0.2549
@@ -6,6 +6,7 @@ Ka 0.0980 0.1078 0.1275
 Ks 0.1 0.1 0.1
 Ns 10.0
 illum 2
+map_Kd mech_texture.png
 
 newmtl head_visor_mat
 Kd 1.0000 0.1569 0.0000
@@ -13,6 +14,7 @@ Ka 0.5000 0.0784 0.0000
 Ks 0.1 0.1 0.1
 Ns 10.0
 illum 2
+map_Kd mech_texture.png
 
 newmtl head_antenna_l_mat
 Kd 0.8627 0.7059 0.0784
@@ -20,6 +22,7 @@ Ka 0.4314 0.3529 0.0392
 Ks 0.1 0.1 0.1
 Ns 10.0
 illum 2
+map_Kd mech_texture.png
 
 newmtl head_antenna_r_mat
 Kd 0.8627 0.7059 0.0784
@@ -27,6 +30,7 @@ Ka 0.4314 0.3529 0.0392
 Ks 0.1 0.1 0.1
 Ns 10.0
 illum 2
+map_Kd mech_texture.png
 
 newmtl torso_upper_mat
 Kd 0.1961 0.2157 0.2549
@@ -34,6 +38,7 @@ Ka 0.0980 0.1078 0.1275
 Ks 0.1 0.1 0.1
 Ns 10.0
 illum 2
+map_Kd mech_texture.png
 
 newmtl torso_lower_mat
 Kd 0.3529 0.3922 0.4510
@@ -41,6 +46,7 @@ Ka 0.1765 0.1961 0.2255
 Ks 0.1 0.1 0.1
 Ns 10.0
 illum 2
+map_Kd mech_texture.png
 
 newmtl backpack_mat
 Kd 0.1569 0.1569 0.1569
@@ -48,6 +54,7 @@ Ka 0.0784 0.0784 0.0784
 Ks 0.1 0.1 0.1
 Ns 10.0
 illum 2
+map_Kd mech_texture.png
 
 newmtl thruster_l_mat
 Kd 0.8627 0.7059 0.0784
@@ -55,6 +62,7 @@ Ka 0.4314 0.3529 0.0392
 Ks 0.1 0.1 0.1
 Ns 10.0
 illum 2
+map_Kd mech_texture.png
 
 newmtl thruster_r_mat
 Kd 0.8627 0.7059 0.0784
@@ -62,6 +70,7 @@ Ka 0.4314 0.3529 0.0392
 Ks 0.1 0.1 0.1
 Ns 10.0
 illum 2
+map_Kd mech_texture.png
 
 newmtl hips_mat
 Kd 0.3137 0.3137 0.3137
@@ -69,6 +78,7 @@ Ka 0.1569 0.1569 0.1569
 Ks 0.1 0.1 0.1
 Ns 10.0
 illum 2
+map_Kd mech_texture.png
 
 newmtl hip_joint_l_mat
 Kd 0.3137 0.3137 0.3137
@@ -76,6 +86,7 @@ Ka 0.1569 0.1569 0.1569
 Ks 0.1 0.1 0.1
 Ns 10.0
 illum 2
+map_Kd mech_texture.png
 
 newmtl hip_joint_r_mat
 Kd 0.3137 0.3137 0.3137
@@ -83,6 +94,7 @@ Ka 0.1569 0.1569 0.1569
 Ks 0.1 0.1 0.1
 Ns 10.0
 illum 2
+map_Kd mech_texture.png
 
 newmtl thigh_l_mat
 Kd 0.1961 0.2157 0.2549
@@ -90,6 +102,7 @@ Ka 0.0980 0.1078 0.1275
 Ks 0.1 0.1 0.1
 Ns 10.0
 illum 2
+map_Kd mech_texture.png
 
 newmtl thigh_r_mat
 Kd 0.1961 0.2157 0.2549
@@ -97,6 +110,7 @@ Ka 0.0980 0.1078 0.1275
 Ks 0.1 0.1 0.1
 Ns 10.0
 illum 2
+map_Kd mech_texture.png
 
 newmtl knee_l_mat
 Kd 0.3137 0.3137 0.3137
@@ -104,6 +118,7 @@ Ka 0.1569 0.1569 0.1569
 Ks 0.1 0.1 0.1
 Ns 10.0
 illum 2
+map_Kd mech_texture.png
 
 newmtl knee_r_mat
 Kd 0.3137 0.3137 0.3137
@@ -111,6 +126,7 @@ Ka 0.1569 0.1569 0.1569
 Ks 0.1 0.1 0.1
 Ns 10.0
 illum 2
+map_Kd mech_texture.png
 
 newmtl calf_l_mat
 Kd 0.3529 0.3922 0.4510
@@ -118,6 +134,7 @@ Ka 0.1765 0.1961 0.2255
 Ks 0.1 0.1 0.1
 Ns 10.0
 illum 2
+map_Kd mech_texture.png
 
 newmtl calf_r_mat
 Kd 0.3529 0.3922 0.4510
@@ -125,6 +142,7 @@ Ka 0.1765 0.1961 0.2255
 Ks 0.1 0.1 0.1
 Ns 10.0
 illum 2
+map_Kd mech_texture.png
 
 newmtl foot_l_mat
 Kd 0.1961 0.2157 0.2549
@@ -132,6 +150,7 @@ Ka 0.0980 0.1078 0.1275
 Ks 0.1 0.1 0.1
 Ns 10.0
 illum 2
+map_Kd mech_texture.png
 
 newmtl foot_r_mat
 Kd 0.1961 0.2157 0.2549
@@ -139,6 +158,7 @@ Ka 0.0980 0.1078 0.1275
 Ks 0.1 0.1 0.1
 Ns 10.0
 illum 2
+map_Kd mech_texture.png
 
 newmtl shoulder_pad_l_mat
 Kd 0.3529 0.3922 0.4510
@@ -146,6 +166,7 @@ Ka 0.1765 0.1961 0.2255
 Ks 0.1 0.1 0.1
 Ns 10.0
 illum 2
+map_Kd mech_texture.png
 
 newmtl shoulder_pad_r_mat
 Kd 0.3529 0.3922 0.4510
@@ -153,6 +174,7 @@ Ka 0.1765 0.1961 0.2255
 Ks 0.1 0.1 0.1
 Ns 10.0
 illum 2
+map_Kd mech_texture.png
 
 newmtl upper_arm_l_mat
 Kd 0.3137 0.3137 0.3137
@@ -160,6 +182,7 @@ Ka 0.1569 0.1569 0.1569
 Ks 0.1 0.1 0.1
 Ns 10.0
 illum 2
+map_Kd mech_texture.png
 
 newmtl upper_arm_r_mat
 Kd 0.3137 0.3137 0.3137
@@ -167,6 +190,7 @@ Ka 0.1569 0.1569 0.1569
 Ks 0.1 0.1 0.1
 Ns 10.0
 illum 2
+map_Kd mech_texture.png
 
 newmtl elbow_l_mat
 Kd 0.3137 0.3137 0.3137
@@ -174,6 +198,7 @@ Ka 0.1569 0.1569 0.1569
 Ks 0.1 0.1 0.1
 Ns 10.0
 illum 2
+map_Kd mech_texture.png
 
 newmtl elbow_r_mat
 Kd 0.3137 0.3137 0.3137
@@ -181,6 +206,7 @@ Ka 0.1569 0.1569 0.1569
 Ks 0.1 0.1 0.1
 Ns 10.0
 illum 2
+map_Kd mech_texture.png
 
 newmtl forearm_l_mat
 Kd 0.1961 0.2157 0.2549
@@ -188,6 +214,7 @@ Ka 0.0980 0.1078 0.1275
 Ks 0.1 0.1 0.1
 Ns 10.0
 illum 2
+map_Kd mech_texture.png
 
 newmtl laser_cannon_mat
 Kd 0.1569 0.1569 0.1569
@@ -195,6 +222,7 @@ Ka 0.0784 0.0784 0.0784
 Ks 0.1 0.1 0.1
 Ns 10.0
 illum 2
+map_Kd mech_texture.png
 
 newmtl forearm_r_mat
 Kd 0.1961 0.2157 0.2549
@@ -202,6 +230,7 @@ Ka 0.0980 0.1078 0.1275
 Ks 0.1 0.1 0.1
 Ns 10.0
 illum 2
+map_Kd mech_texture.png
 
 newmtl rocket_pod_mat
 Kd 0.1569 0.1569 0.1569
@@ -209,6 +238,7 @@ Ka 0.0784 0.0784 0.0784
 Ks 0.1 0.1 0.1
 Ns 10.0
 illum 2
+map_Kd mech_texture.png
 
 newmtl rocket_tubes_mat
 Kd 1.0000 0.1569 0.0000
@@ -216,4 +246,5 @@ Ka 0.5000 0.0784 0.0000
 Ks 0.1 0.1 0.1
 Ns 10.0
 illum 2
+map_Kd mech_texture.png
 

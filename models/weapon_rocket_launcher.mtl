@@ -1,0 +1,50 @@
+# MTL for Rocket Launcher
+
+newmtl launcher_body_mat
+Kd 0.1569 0.1569 0.1569
+Ka 0.0784 0.0784 0.0784
+Ks 0.1 0.1 0.1
+Ns 10.0
+illum 2
+map_Kd mech_texture.png
+
+newmtl launcher_t1_mat
+Kd 1.0000 0.1569 0.0000
+Ka 0.5000 0.0784 0.0000
+Ks 0.1 0.1 0.1
+Ns 10.0
+illum 2
+map_Kd mech_texture.png
+
+newmtl launcher_t2_mat
+Kd 1.0000 0.1569 0.0000
+Ka 0.5000 0.0784 0.0000
+Ks 0.1 0.1 0.1
+Ns 10.0
+illum 2
+map_Kd mech_texture.png
+
+newmtl launcher_t3_mat
+Kd 1.0000 0.1569 0.0000
+Ka 0.5000 0.0784 0.0000
+Ks 0.1 0.1 0.1
+Ns 10.0
+illum 2
+map_Kd mech_texture.png
+
+newmtl launcher_t4_mat
+Kd 1.0000 0.1569 0.0000
+Ka 0.5000 0.0784 0.0000
+Ks 0.1 0.1 0.1
+Ns 10.0
+illum 2
+map_Kd mech_texture.png
+
+newmtl launcher_bracket_mat
+Kd 0.3529 0.3922 0.4510
+Ka 0.1765 0.1961 0.2255
+Ks 0.1 0.1 0.1
+Ns 10.0
+illum 2
+map_Kd mech_texture.png
+
