@@ -360,6 +360,7 @@ void draw_cockpit_overlay(display_context_t disp, int hp, int shield, float elev
 int main(void)
 {
     /* Initialize systems */
+    init_interrupts();
     display_init(RESOLUTION_320x240, DEPTH_16_BPP, 2, GAMMA_NONE, ANTIALIAS_RESAMPLE);
     controller_init();
     debug_init_isviewer();
@@ -367,7 +368,7 @@ int main(void)
     long long last_ticks = timer_ticks();
 
     /* Player position & direction */
-    float posX = 2.5f, posY = 2.5f;
+    float posX = 1.5f, posY = 1.5f;
     float dirX = 1.0f, dirY = 0.0f;
     float planeX = 0.0f, planeY = 0.66f;
 
@@ -654,8 +655,8 @@ int main(void)
                 state = STATE_EXPLORING;
                 hp = 100;
                 shield = 80;
-                posX = 2.5f;
-                posY = 2.5f;
+                posX = 1.5f;
+                posY = 1.5f;
                 dirX = 1.0f;
                 dirY = 0.0f;
                 planeX = 0.0f;
