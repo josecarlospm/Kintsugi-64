@@ -6,6 +6,7 @@ build/
 *.v64
 *.map
 *.d
+*.o
 
 # Release artifacts
 release_dist/
