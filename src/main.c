@@ -7,6 +7,98 @@
 #include <debug.h>
 #include <timer.h>
 
+#if __has_include(<joypad.h>)
+#include <joypad.h>
+#else
+// Compatibility shim for older libdragon without joypad.h
+typedef enum {
+    JOYPAD_PORT_1 = 0,
+    JOYPAD_PORT_2 = 1,
+    JOYPAD_PORT_3 = 2,
+    JOYPAD_PORT_4 = 3
+} joypad_port_t;
+
+typedef struct {
+    unsigned a : 1;
+    unsigned b : 1;
+    unsigned z : 1;
+    unsigned start : 1;
+    unsigned d_up : 1;
+    unsigned d_down : 1;
+    unsigned d_left : 1;
+    unsigned d_right : 1;
+    unsigned l : 1;
+    unsigned r : 1;
+    unsigned c_up : 1;
+    unsigned c_down : 1;
+    unsigned c_left : 1;
+    unsigned c_right : 1;
+    unsigned x : 1;
+    unsigned y : 1;
+} joypad_buttons_t;
+
+typedef struct {
+    joypad_buttons_t btn;
+    int8_t stick_x;
+    int8_t stick_y;
+} joypad_inputs_t;
+
+static inline void joypad_init(void) {
+    controller_init();
+}
+
+static inline void joypad_poll(void) {
+    controller_scan();
+}
+
+static inline joypad_inputs_t joypad_get_inputs(joypad_port_t port) {
+    struct controller_data keys;
+    controller_read(&keys);
+    joypad_inputs_t inputs;
+    inputs.btn.a = keys.c[port].A;
+    inputs.btn.b = keys.c[port].B;
+    inputs.btn.z = keys.c[port].Z;
+    inputs.btn.start = keys.c[port].start;
+    inputs.btn.d_up = keys.c[port].up;
+    inputs.btn.d_down = keys.c[port].down;
+    inputs.btn.d_left = keys.c[port].left;
+    inputs.btn.d_right = keys.c[port].right;
+    inputs.btn.l = keys.c[port].L;
+    inputs.btn.r = keys.c[port].R;
+    inputs.btn.c_up = keys.c[port].C_up;
+    inputs.btn.c_down = keys.c[port].C_down;
+    inputs.btn.c_left = keys.c[port].C_left;
+    inputs.btn.c_right = keys.c[port].C_right;
+    inputs.btn.x = 0;
+    inputs.btn.y = 0;
+    inputs.stick_x = keys.c[port].x;
+    inputs.stick_y = keys.c[port].y;
+    return inputs;
+}
+
+static inline joypad_buttons_t joypad_get_buttons_pressed(joypad_port_t port) {
+    struct controller_data keys_down = get_keys_down();
+    joypad_buttons_t btn;
+    btn.a = keys_down.c[port].A;
+    btn.b = keys_down.c[port].B;
+    btn.z = keys_down.c[port].Z;
+    btn.start = keys_down.c[port].start;
+    btn.d_up = keys_down.c[port].up;
+    btn.d_down = keys_down.c[port].down;
+    btn.d_left = keys_down.c[port].left;
+    btn.d_right = keys_down.c[port].right;
+    btn.l = keys_down.c[port].L;
+    btn.r = keys_down.c[port].R;
+    btn.c_up = keys_down.c[port].C_up;
+    btn.c_down = keys_down.c[port].C_down;
+    btn.c_left = keys_down.c[port].C_left;
+    btn.c_right = keys_down.c[port].C_right;
+    btn.x = 0;
+    btn.y = 0;
+    return btn;
+}
+#endif
+
 #define MAP_WIDTH 16
 #define MAP_HEIGHT 16
 
@@ -362,7 +454,7 @@ int main(void)
     /* Initialize systems */
     init_interrupts();
     display_init(RESOLUTION_320x240, DEPTH_16_BPP, 2, GAMMA_NONE, ANTIALIAS_RESAMPLE);
-    controller_init();
+    joypad_init();
     debug_init_isviewer();
     timer_init();
     long long last_ticks = timer_ticks();
@@ -408,10 +500,9 @@ int main(void)
         }
 
         /* Read controller inputs */
-        controller_scan();
-        struct controller_data keys;
-        controller_read(&keys);
-        struct controller_data keys_down = get_keys_down();
+        joypad_poll();
+        joypad_inputs_t inputs = joypad_get_inputs(JOYPAD_PORT_1);
+        joypad_buttons_t btn_down = joypad_get_buttons_pressed(JOYPAD_PORT_1);
 
         /* GAME STATE UPDATE */
         if (state == STATE_EXPLORING) {
@@ -430,10 +521,10 @@ int main(void)
             
             // Turning
             float rotate_angle = 0.0f;
-            if (keys.c[0].left || keys.c[0].x < -20) {
+            if (inputs.btn.d_left || inputs.stick_x < -20) {
                 rotate_angle = rotSpeed;
             }
-            if (keys.c[0].right || keys.c[0].x > 20) {
+            if (inputs.btn.d_right || inputs.stick_x > 20) {
                 rotate_angle = -rotSpeed;
             }
             if (rotate_angle != 0.0f) {
@@ -446,11 +537,11 @@ int main(void)
             }
 
             // Movement
-            if (keys.c[0].up || keys.c[0].y > 20) {
+            if (inputs.btn.d_up || inputs.stick_y > 20) {
                 moveX = dirX * moveSpeed;
                 moveY = dirY * moveSpeed;
             }
-            if (keys.c[0].down || keys.c[0].y < -20) {
+            if (inputs.btn.d_down || inputs.stick_y < -20) {
                 moveX = -dirX * moveSpeed;
                 moveY = -dirY * moveSpeed;
             }
@@ -485,7 +576,7 @@ int main(void)
             }
 
             // Weapon switching
-            if (keys_down.c[0].L || keys_down.c[0].R || keys_down.c[0].Z) {
+            if (btn_down.l || btn_down.r || btn_down.z) {
                 active_weapon = 1 - active_weapon;
             }
 
@@ -503,28 +594,28 @@ int main(void)
             }
 
             if (closest_idx != -1 && closest_dist < 1.3f) {
-                if (keys_down.c[0].A) {
+                if (btn_down.a) {
                     dialogue_citizen_idx = closest_idx;
                     state = STATE_DIALOGUE_INTRO;
                     selected_choice = 0;
                 }
             }
         } else if (state == STATE_DIALOGUE_INTRO) {
-            if (keys_down.c[0].A) {
+            if (btn_down.a) {
                 state = STATE_DIALOGUE_CHOICE;
             }
         } else if (state == STATE_DIALOGUE_CHOICE) {
-            if (keys_down.c[0].up || keys_down.c[0].C_up || keys.c[0].y > 30) {
+            if (btn_down.d_up || btn_down.c_up || inputs.stick_y > 30) {
                 selected_choice = 0;
             }
-            if (keys_down.c[0].down || keys_down.c[0].C_down || keys.c[0].y < -30) {
+            if (btn_down.d_down || btn_down.c_down || inputs.stick_y < -30) {
                 selected_choice = 1;
             }
-            if (keys_down.c[0].A) {
+            if (btn_down.a) {
                 state = STATE_DIALOGUE_OUTCOME;
             }
         } else if (state == STATE_DIALOGUE_OUTCOME) {
-            if (keys_down.c[0].A) {
+            if (btn_down.a) {
                 if (dialogue_citizen_idx == 0) { // Misato dialogue triggers invasion alarm
                     state = STATE_ALARM_SEQUENCE;
                     alarm_timer = 0;
@@ -541,7 +632,7 @@ int main(void)
             }
         } else if (state == STATE_COCKPIT_TRANSITION) {
             cockpit_timer++;
-            if (cockpit_timer >= 180 && keys_down.c[0].A) {
+            if (cockpit_timer >= 180 && btn_down.a) {
                 state = STATE_ELEVATOR_ASCENSION;
                 elevator_height = 0.0f;
                 posX = 7.5f;
@@ -571,19 +662,19 @@ int main(void)
             // Strafe controls in elevator
             float strafeX = -dirY;
             float strafeY = dirX;
-            if (keys.c[0].left || keys.c[0].x < -20) {
+            if (inputs.btn.d_left || inputs.stick_x < -20) {
                 moveX = -strafeX * moveSpeed;
                 moveY = -strafeY * moveSpeed;
             }
-            if (keys.c[0].right || keys.c[0].x > 20) {
+            if (inputs.btn.d_right || inputs.stick_x > 20) {
                 moveX = strafeX * moveSpeed;
                 moveY = strafeY * moveSpeed;
             }
-            if (keys.c[0].up || keys.c[0].y > 20) {
+            if (inputs.btn.d_up || inputs.stick_y > 20) {
                 moveX += dirX * moveSpeed * 0.5f;
                 moveY += dirY * moveSpeed * 0.5f;
             }
-            if (keys.c[0].down || keys.c[0].y < -20) {
+            if (inputs.btn.d_down || inputs.stick_y < -20) {
                 moveX -= dirX * moveSpeed * 0.5f;
                 moveY -= dirY * moveSpeed * 0.5f;
             }
@@ -651,7 +742,7 @@ int main(void)
                 state = STATE_MISSION_COMPLETE;
             }
         } else if (state == STATE_MISSION_COMPLETE || state == STATE_GAME_OVER) {
-            if (keys_down.c[0].A) {
+            if (btn_down.a) {
                 state = STATE_EXPLORING;
                 hp = 100;
                 shield = 80;
