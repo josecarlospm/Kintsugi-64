@@ -1,0 +1,130 @@
+# MTL for Tokyo-3 Layout
+
+newmtl street_main_mat
+Kd 0.1765 0.1765 0.1882
+Ka 0.0882 0.0882 0.0941
+Ks 0.1 0.1 0.1
+Ns 10.0
+illum 2
+map_Kd tokyo3_texture.png
+
+newmtl sidewalk_l_mat
+Kd 0.3922 0.3922 0.3922
+Ka 0.1961 0.1961 0.1961
+Ks 0.1 0.1 0.1
+Ns 10.0
+illum 2
+map_Kd tokyo3_texture.png
+
+newmtl sidewalk_r_mat
+Kd 0.3922 0.3922 0.3922
+Ka 0.1961 0.1961 0.1961
+Ks 0.1 0.1 0.1
+Ns 10.0
+illum 2
+map_Kd tokyo3_texture.png
+
+newmtl building_a_mat
+Kd 0.4314 0.4510 0.4902
+Ka 0.2157 0.2255 0.2451
+Ks 0.1 0.1 0.1
+Ns 10.0
+illum 2
+map_Kd tokyo3_texture.png
+
+newmtl building_b_mat
+Kd 0.4314 0.4510 0.4902
+Ka 0.2157 0.2255 0.2451
+Ks 0.1 0.1 0.1
+Ns 10.0
+illum 2
+map_Kd tokyo3_texture.png
+
+newmtl building_c_mat
+Kd 0.4314 0.4510 0.4902
+Ka 0.2157 0.2255 0.2451
+Ks 0.1 0.1 0.1
+Ns 10.0
+illum 2
+map_Kd tokyo3_texture.png
+
+newmtl building_d_mat
+Kd 0.4314 0.4510 0.4902
+Ka 0.2157 0.2255 0.2451
+Ks 0.1 0.1 0.1
+Ns 10.0
+illum 2
+map_Kd tokyo3_texture.png
+
+newmtl gate_l_mat
+Kd 0.2353 0.2431 0.2667
+Ka 0.1176 0.1216 0.1333
+Ks 0.1 0.1 0.1
+Ns 10.0
+illum 2
+map_Kd tokyo3_texture.png
+
+newmtl gate_r_mat
+Kd 0.2353 0.2431 0.2667
+Ka 0.1176 0.1216 0.1333
+Ks 0.1 0.1 0.1
+Ns 10.0
+illum 2
+map_Kd tokyo3_texture.png
+
+newmtl elevator_platform_mat
+Kd 0.2941 0.2941 0.3137
+Ka 0.1471 0.1471 0.1569
+Ks 0.1 0.1 0.1
+Ns 10.0
+illum 2
+map_Kd tokyo3_texture.png
+
+newmtl elevator_rail_l_mat
+Kd 0.1961 0.1961 0.2039
+Ka 0.0980 0.0980 0.1020
+Ks 0.1 0.1 0.1
+Ns 10.0
+illum 2
+map_Kd tokyo3_texture.png
+
+newmtl elevator_rail_r_mat
+Kd 0.1961 0.1961 0.2039
+Ka 0.0980 0.0980 0.1020
+Ks 0.1 0.1 0.1
+Ns 10.0
+illum 2
+map_Kd tokyo3_texture.png
+
+newmtl citizen_bb1_mat
+Kd 0.9020 0.2745 0.0784
+Ka 0.4510 0.1373 0.0392
+Ks 0.1 0.1 0.1
+Ns 10.0
+illum 2
+map_Kd tokyo3_texture.png
+
+newmtl citizen_bb2_mat
+Kd 0.9020 0.2745 0.0784
+Ka 0.4510 0.1373 0.0392
+Ks 0.1 0.1 0.1
+Ns 10.0
+illum 2
+map_Kd tokyo3_texture.png
+
+newmtl citizen_lp_body_mat
+Kd 0.9020 0.2745 0.0784
+Ka 0.4510 0.1373 0.0392
+Ks 0.1 0.1 0.1
+Ns 10.0
+illum 2
+map_Kd tokyo3_texture.png
+
+newmtl citizen_lp_head_mat
+Kd 0.9412 0.7843 0.6275
+Ka 0.4706 0.3922 0.3137
+Ks 0.1 0.1 0.1
+Ns 10.0
+illum 2
+map_Kd tokyo3_texture.png
+

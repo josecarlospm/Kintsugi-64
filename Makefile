@@ -2,7 +2,7 @@ SOURCE_DIR = src
 BUILD_DIR = build
 include $(N64_INST)/include/n64.mk
 
-OBJS = $(BUILD_DIR)/main.o $(BUILD_DIR)/assets/mech_assets.o
+OBJS = $(BUILD_DIR)/main.o $(BUILD_DIR)/assets/mech_assets.o $(BUILD_DIR)/assets/tokyo3_assets.o
 
 all: game.z64
 
