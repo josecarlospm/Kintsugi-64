@@ -10,7 +10,8 @@ ROM_FILE="game.z64"
 # 1. Compile ROM if needed
 if [ ! -f "$ROM_FILE" ]; then
     echo "ROM not found. Compiling ROM..."
-    python3 scripts/compile_assets.py
+    python3 scripts/generate_mech.py
+    python3 scripts/generate_tokyo3.py
     docker run --rm --platform linux/amd64 -v "$(pwd):/libdragon" -u "$(id -u):$(id -g)" anacierdem/libdragon make
 fi
 
@@ -59,7 +60,16 @@ echo "Verifying ROM checksum using toolchain..."
 docker run --rm --platform linux/amd64 -v "$(pwd):/libdragon" anacierdem/libdragon chksum64 "$ROM_FILE"
 echo "[PASS] ROM Checksum verification completed."
 
-# 7. Simulate Emulator Run-test (Headless load test)
+# 7. Verify Frame-rate Performance & Stability Instrumentation
+echo "Checking ROM performance & stability instrumentation..."
+if grep -q "timer_ticks()" "src/main.c" && grep -q "TIMER_MICROS_LL" "src/main.c" && grep -q "debugf" "src/main.c"; then
+    echo "[PASS] Frame-rate measurement and performance logging code is instrumented."
+else
+    echo "[FAIL] Frame-rate measurement code not found in src/main.c."
+    exit 1
+fi
+
+# 8. Simulate Emulator Run-test (Headless load test)
 # Since we are running in headless CI without graphical display, we simulate loading the ROM in the Pyrite64 target environment.
 # Pyrite64 target environment is built on libdragon + tiny3d. We verify that the ROM has standard libdragon bootcode
 # and satisfies the memory mapping constraints.

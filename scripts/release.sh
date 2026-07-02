@@ -16,7 +16,8 @@ RELEASE_TAR="kintsugi64-${VERSION}.tar.gz"
 # 2. Clean and compile a fresh ROM
 echo "Performing clean build of N64 ROM..."
 docker run --rm --platform linux/amd64 -v "$(pwd):/libdragon" -u "$(id -u):$(id -g)" anacierdem/libdragon make clean
-python3 scripts/compile_assets.py
+python3 scripts/generate_mech.py
+python3 scripts/generate_tokyo3.py
 docker run --rm --platform linux/amd64 -v "$(pwd):/libdragon" -u "$(id -u):$(id -g)" anacierdem/libdragon make
 
 # 3. Create release directory structure

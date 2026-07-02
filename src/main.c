@@ -4,6 +4,8 @@
 #include <math.h>
 #include <stdlib.h>
 #include <libdragon.h>
+#include <debug.h>
+#include <timer.h>
 
 #define MAP_WIDTH 16
 #define MAP_HEIGHT 16
@@ -360,6 +362,9 @@ int main(void)
     /* Initialize systems */
     display_init(RESOLUTION_320x240, DEPTH_16_BPP, 2, GAMMA_NONE, ANTIALIAS_RESAMPLE);
     controller_init();
+    debug_init_isviewer();
+    timer_init();
+    long long last_ticks = timer_ticks();
 
     /* Player position & direction */
     float posX = 2.5f, posY = 2.5f;
@@ -1028,6 +1033,27 @@ int main(void)
 
         /* Render buffer */
         display_show(disp);
+
+        {
+            long long current_ticks = timer_ticks();
+            long long frame_ticks = current_ticks - last_ticks;
+            last_ticks = current_ticks;
+
+            long long frame_us = TIMER_MICROS_LL(frame_ticks);
+            float frame_ms = frame_us / 1000.0f;
+            float fps = 1000.0f / frame_ms;
+
+            static int slow_frames = 0;
+            static int total_frames = 0;
+            total_frames++;
+            if (frame_ms > 33.4f) {
+                slow_frames++;
+                debugf("[PERF WARNING] Frame %d slow: %.2f ms (%.1f FPS). Slow ratio: %.1f%%\n",
+                       total_frames, frame_ms, fps, (float)slow_frames * 100.0f / total_frames);
+            } else {
+                debugf("[PERF] Frame %d: %.2f ms (%.1f FPS)\n", total_frames, frame_ms, fps);
+            }
+        }
     }
 
     return 0;

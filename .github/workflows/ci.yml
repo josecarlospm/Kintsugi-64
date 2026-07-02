@@ -30,7 +30,8 @@ jobs:
 
       - name: Compile Assets
         run: |
-          python3 scripts/compile_assets.py
+          python3 scripts/generate_mech.py
+          python3 scripts/generate_tokyo3.py
 
       - name: Build ROM
         run: |
