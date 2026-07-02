@@ -28,6 +28,10 @@ jobs:
         with:
           platforms: amd64
 
+      - name: Compile Assets
+        run: |
+          python3 scripts/compile_assets.py
+
       - name: Build ROM
         run: |
           docker run --rm \
@@ -35,6 +39,7 @@ jobs:
             -u $(id -u):$(id -g) \
             anacierdem/libdragon:latest \
             make
+
 
       - name: Run Headless ROM Testing
         run: |

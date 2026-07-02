@@ -24,3 +24,7 @@ Thumbs.db
 .agents/
 .multica/
 AGENTS.md
+
+# Generated assets
+src/assets/
+src/assets.h
