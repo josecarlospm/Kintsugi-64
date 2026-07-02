@@ -10,6 +10,7 @@ ROM_FILE="game.z64"
 # 1. Compile ROM if needed
 if [ ! -f "$ROM_FILE" ]; then
     echo "ROM not found. Compiling ROM..."
+    python3 scripts/compile_assets.py
     docker run --rm --platform linux/amd64 -v "$(pwd):/libdragon" -u "$(id -u):$(id -g)" anacierdem/libdragon make
 fi
 
