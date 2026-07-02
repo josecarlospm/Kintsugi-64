@@ -1,0 +1,25 @@
+# N64 Build outputs
+build/
+*.elf
+*.bin
+*.z64
+*.v64
+*.map
+*.d
+
+# Release artifacts
+release_dist/
+*.zip
+*.tar.gz
+RELEASE_NOTES.md
+
+# OS and Editor metadata
+.DS_Store
+Thumbs.db
+.vscode/
+
+# Agent/Multica runtime directories
+.agent_context/
+.agents/
+.multica/
+AGENTS.md
