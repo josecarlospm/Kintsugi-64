@@ -99,6 +99,111 @@ static inline joypad_buttons_t joypad_get_buttons_pressed(joypad_port_t port) {
 }
 #endif
 
+static inline joypad_inputs_t get_merged_inputs(void) {
+    joypad_inputs_t inputs = {0};
+#if __has_include(<joypad.h>)
+    for (int p = 0; p < 4; p++) {
+        joypad_port_t port = (joypad_port_t)p;
+        if (joypad_is_connected(port)) {
+            joypad_inputs_t p_inputs = joypad_get_inputs(port);
+            inputs.btn.a |= p_inputs.btn.a;
+            inputs.btn.b |= p_inputs.btn.b;
+            inputs.btn.z |= p_inputs.btn.z;
+            inputs.btn.start |= p_inputs.btn.start;
+            inputs.btn.d_up |= p_inputs.btn.d_up;
+            inputs.btn.d_down |= p_inputs.btn.d_down;
+            inputs.btn.d_left |= p_inputs.btn.d_left;
+            inputs.btn.d_right |= p_inputs.btn.d_right;
+            inputs.btn.l |= p_inputs.btn.l;
+            inputs.btn.r |= p_inputs.btn.r;
+            inputs.btn.c_up |= p_inputs.btn.c_up;
+            inputs.btn.c_down |= p_inputs.btn.c_down;
+            inputs.btn.c_left |= p_inputs.btn.c_left;
+            inputs.btn.c_right |= p_inputs.btn.c_right;
+            
+            if (abs(p_inputs.stick_x) > abs(inputs.stick_x)) {
+                inputs.stick_x = p_inputs.stick_x;
+            }
+            if (abs(p_inputs.stick_y) > abs(inputs.stick_y)) {
+                inputs.stick_y = p_inputs.stick_y;
+            }
+        }
+    }
+#else
+    struct controller_data keys;
+    controller_read(&keys);
+    for (int p = 0; p < 4; p++) {
+        inputs.btn.a |= keys.c[p].A;
+        inputs.btn.b |= keys.c[p].B;
+        inputs.btn.z |= keys.c[p].Z;
+        inputs.btn.start |= keys.c[p].start;
+        inputs.btn.d_up |= keys.c[p].up;
+        inputs.btn.d_down |= keys.c[p].down;
+        inputs.btn.d_left |= keys.c[p].left;
+        inputs.btn.d_right |= keys.c[p].right;
+        inputs.btn.l |= keys.c[p].L;
+        inputs.btn.r |= keys.c[p].R;
+        inputs.btn.c_up |= keys.c[p].C_up;
+        inputs.btn.c_down |= keys.c[p].C_down;
+        inputs.btn.c_left |= keys.c[p].C_left;
+        inputs.btn.c_right |= keys.c[p].C_right;
+        
+        if (abs(keys.c[p].x) > abs(inputs.stick_x)) {
+            inputs.stick_x = keys.c[p].x;
+        }
+        if (abs(keys.c[p].y) > abs(inputs.stick_y)) {
+            inputs.stick_y = keys.c[p].y;
+        }
+    }
+#endif
+    return inputs;
+}
+
+static inline joypad_buttons_t get_merged_buttons_pressed(void) {
+    joypad_buttons_t btn = {0};
+#if __has_include(<joypad.h>)
+    for (int p = 0; p < 4; p++) {
+        joypad_port_t port = (joypad_port_t)p;
+        if (joypad_is_connected(port)) {
+            joypad_buttons_t p_btn = joypad_get_buttons_pressed(port);
+            btn.a |= p_btn.a;
+            btn.b |= p_btn.b;
+            btn.z |= p_btn.z;
+            btn.start |= p_btn.start;
+            btn.d_up |= p_btn.d_up;
+            btn.d_down |= p_btn.d_down;
+            btn.d_left |= p_btn.d_left;
+            btn.d_right |= p_btn.d_right;
+            btn.l |= p_btn.l;
+            btn.r |= p_btn.r;
+            btn.c_up |= p_btn.c_up;
+            btn.c_down |= p_btn.c_down;
+            btn.c_left |= p_btn.c_left;
+            btn.c_right |= p_btn.c_right;
+        }
+    }
+#else
+    struct controller_data keys_down = get_keys_down();
+    for (int p = 0; p < 4; p++) {
+        btn.a |= keys_down.c[p].A;
+        btn.b |= keys_down.c[p].B;
+        btn.z |= keys_down.c[p].Z;
+        btn.start |= keys_down.c[p].start;
+        btn.d_up |= keys_down.c[p].up;
+        btn.d_down |= keys_down.c[p].down;
+        btn.d_left |= keys_down.c[p].left;
+        btn.d_right |= keys_down.c[p].right;
+        btn.l |= keys_down.c[p].L;
+        btn.r |= keys_down.c[p].R;
+        btn.c_up |= keys_down.c[p].C_up;
+        btn.c_down |= keys_down.c[p].C_down;
+        btn.c_left |= keys_down.c[p].C_left;
+        btn.c_right |= keys_down.c[p].C_right;
+    }
+#endif
+    return btn;
+}
+
 #define MAP_WIDTH 16
 #define MAP_HEIGHT 16
 
@@ -452,11 +557,11 @@ void draw_cockpit_overlay(display_context_t disp, int hp, int shield, float elev
 int main(void)
 {
     /* Initialize systems */
-    init_interrupts();
     display_init(RESOLUTION_320x240, DEPTH_16_BPP, 2, GAMMA_NONE, ANTIALIAS_RESAMPLE);
     joypad_init();
     debug_init_isviewer();
     timer_init();
+    init_interrupts();
     long long last_ticks = timer_ticks();
 
     /* Player position & direction */
@@ -501,8 +606,8 @@ int main(void)
 
         /* Read controller inputs */
         joypad_poll();
-        joypad_inputs_t inputs = joypad_get_inputs(JOYPAD_PORT_1);
-        joypad_buttons_t btn_down = joypad_get_buttons_pressed(JOYPAD_PORT_1);
+        joypad_inputs_t inputs = get_merged_inputs();
+        joypad_buttons_t btn_down = get_merged_buttons_pressed();
 
         /* GAME STATE UPDATE */
         if (state == STATE_EXPLORING) {
